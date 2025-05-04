@@ -58,7 +58,7 @@ bash :
 mvn spring-boot:run
 
 4.Access the app:
-Open browser and go to: http://localhost:8081/students
+Open browser and go to: http://localhost:8081/
 
 ![image](https://github.com/user-attachments/assets/38ef40c2-a60e-46c9-9c0d-3c4098b1b407)
 
