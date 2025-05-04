@@ -14,7 +14,7 @@
         private String name;
 
         @Column(name="Contact_number")
-        private int contact_number;
+        private long contact_number;
 
         @Column(name="Adress")
         private String adress;
@@ -22,6 +22,16 @@
         @Column(name="email")
         private String email;
 
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        @Column(name="password")
+        private String password;
             @Id
             @Column(name="reg_num" ,unique = true)
             private String reg_num;
@@ -37,12 +47,12 @@
             this.name = name;
         }
 
-        public int getContact_number() {
+        public long getContact_number() {
             return contact_number;
         }
 
-        public void setContact_number(int contact_number) {
-            this.contact_number = contact_number;
+        public long setContact_number(long contact_number) {
+           return this.contact_number = contact_number;
         }
 
         public String getAdress() {

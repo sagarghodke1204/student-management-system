@@ -6,12 +6,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ViewController {
 
+      @GetMapping("/")
+      public String homepage(){
+          return "homepage";
+      }
+
+      @GetMapping("/register-student")
+      public String registerStudent(){
+          return "register-student";
+      }
 
 
-    @GetMapping("/")
-    public String home (){
-        return "Home";
-    }
+     @GetMapping("/home")
+     public String home(){
+         return "Home";
+     }
 
     @GetMapping("/add-student")
     public String addStudent(){

@@ -37,6 +37,10 @@
             <label>Address</label>
             <input type="text" class="form-control" id="adress" />
         </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" id="password" />
+        </div>
         <button type="submit" class="btn btn-primary">Update Student</button>
     </form>
 
@@ -63,6 +67,7 @@
         document.getElementById("email").value = student.email;
         document.getElementById("contact_number").value = student.contact_number;
         document.getElementById("adress").value = student.adress;
+        document.getElementById("password").value = student.password; // Load password
 
         document.getElementById("updateForm").classList.remove("d-none");
         document.getElementById("result").innerHTML = "";
@@ -82,7 +87,8 @@
       name: document.getElementById("name").value,
       email: document.getElementById("email").value,
       contact_number: parseInt(document.getElementById("contact_number").value),
-      adress: document.getElementById("adress").value
+      adress: document.getElementById("adress").value,
+      password: document.getElementById("password").value // Include password
     };
 
     console.log("Updating:", regNum, updatedStudent);

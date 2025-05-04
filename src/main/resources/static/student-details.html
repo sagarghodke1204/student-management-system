@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Student Details</h1>
+
+    <div id="studentInfo" class="space-y-4">
+        <p><span class="font-semibold text-gray-700">Registration Number:</span> <span id="regNum"></span></p>
+        <p><span class="font-semibold text-gray-700">Name:</span> <span id="name"></span></p>
+        <p><span class="font-semibold text-gray-700">Email:</span> <span id="email"></span></p>
+        <p><span class="font-semibold text-gray-700">Address:</span> <span id="address"></span></p>
+        <p><span class="font-semibold text-gray-700">Contact Number:</span> <span id="contact"></span></p>
+    </div>
+
+    <div class="mt-6 text-center">
+        <button id="logoutBtn" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Logout</button>
+    </div>
+</div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to get URL parameters
+            function getUrlParam(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+            const loggedInEmail = getUrlParam('email'); // Assuming you pass email as a URL parameter
+
+            if (loggedInEmail) {
+                fetch(`/students/details?email=${loggedInEmail}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(studentData => {
+                        document.getElementById('regNum').textContent = studentData.reg_num;
+                        document.getElementById('name').textContent = studentData.name;
+                        document.getElementById('email').textContent = studentData.email;
+                        document.getElementById('address').textContent = studentData.adress;
+                        document.getElementById('contact').textContent = studentData.contact_number;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching student details:', error);
+                        // Optionally display an error message to the user
+                        document.getElementById('studentInfo').innerHTML = '<p class="text-red-500">Failed to load student details.</p>';
+                    });
+            } else {
+                console.error('Email not found in URL parameters.');
+                document.getElementById('studentInfo').innerHTML = '<p class="text-red-500">Error: Email information missing.</p>';
+            }
+
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.addEventListener('click', () => {
+                window.location.href = '/'; // Redirect to the login page
+                // In a real app, also handle backend session invalidation
+            });
+        });
+    </script>
+</body>
+</html>

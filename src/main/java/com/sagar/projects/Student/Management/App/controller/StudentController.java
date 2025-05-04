@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -47,6 +50,42 @@ return ResponseEntity.ok(student);
    public ResponseEntity<Student>updateByStudentId(@PathVariable String id,@RequestBody Student existingStudent){
        Student student= studentService.updateById(id,existingStudent);
        return ResponseEntity.ok(student);
+
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Map<String,Object>>login(@RequestBody Map<String,String>logindata){
+        String email=logindata.get("email");
+        String password=logindata.get("password");
+
+        Student student =studentService.getStudentByEmail(email);
+
+        // getting email from data base and checking whether it present .
+        if(student == null){
+            Map<String,Object> errorReponse = new HashMap<>();
+            errorReponse.put("message","Invalid Credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorReponse);
+        }
+
+        // Password checking .
+        if (BCrypt.checkpw(password, student.getPassword())) {
+            Map<String, Object> successResponse = new HashMap<>();
+            successResponse.put("message", "Login successful!");
+            return ResponseEntity.ok().body(successResponse);
+        } else {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Invalid credentials.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        }
+    }
+
+    @GetMapping("/details") // Added this endpoint here
+    public ResponseEntity<Student> getStudentDetails(@RequestParam String email) {
+        try {
+            Student student = studentService.getStudentByEmail(email);
+            return ResponseEntity.ok(student);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

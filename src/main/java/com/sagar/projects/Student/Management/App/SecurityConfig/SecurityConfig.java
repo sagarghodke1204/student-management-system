@@ -1,4 +1,4 @@
-package com.sagar.projects.Student.Management.App;
+package com.sagar.projects.Student.Management.App.SecurityConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

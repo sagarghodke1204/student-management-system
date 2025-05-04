@@ -17,10 +17,9 @@
             <th>Email</th>
             <th>Contact</th>
             <th>Address</th>
-        </tr>
+            <th>Password</th> </tr>
         </thead>
         <tbody id="student-table-body">
-        <!-- Students will be inserted here -->
         </tbody>
     </table>
 </div>
@@ -43,7 +42,7 @@
             <td>${student.email}</td>
             <td>${student.contact_number}</td>
             <td>${student.adress}</td>
-          `;
+            <td>${student.password}</td> `;
           tableBody.appendChild(row);
         });
       })

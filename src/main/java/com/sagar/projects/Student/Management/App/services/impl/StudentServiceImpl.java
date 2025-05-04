@@ -5,15 +5,20 @@ import com.sagar.projects.Student.Management.App.exceptions.ResourceNotFoundExce
 import com.sagar.projects.Student.Management.App.repository.StudentRepository;
 import com.sagar.projects.Student.Management.App.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Override
@@ -21,6 +26,8 @@ public class StudentServiceImpl implements StudentService {
         String randomStudentid = UUID.randomUUID().toString();
         student.setReg_num(randomStudentid);
         System.out.println("Saving student: " + student);
+        student.setPassword(bCryptPasswordEncoder.encode(student.getPassword())); // Encode the password
+
         studentRepository.save(student);
         return student;
     }
@@ -54,7 +61,14 @@ public class StudentServiceImpl implements StudentService {
         existingStudent.setAdress(updatedStudent.getAdress());
         existingStudent.setEmail(updatedStudent.getEmail());
         existingStudent.setContact_number(updatedStudent.getContact_number());
+        existingStudent.setPassword(updatedStudent.getPassword());
         return studentRepository.save(existingStudent);
+    }
+
+    @Override
+    public Student getStudentByEmail(String email) {
+        Student student=studentRepository.findByEmail(email).orElseThrow(()->new ResourceNotFoundException("Student with Email "+email+" not found"));
+        return student;
     }
 
 

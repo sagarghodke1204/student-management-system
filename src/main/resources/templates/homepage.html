@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+  <style>
+            body {
+                font-family: 'Inter', sans-serif;
+            }
+
+            .form-container {
+                display: none;
+                /* Initially hide all forms */
+                margin-top: 2rem;
+                /* Add space above forms */
+            }
+
+            .form-container.active {
+                display: block;
+                /* Show the active form */
+            }
+        </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+  <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Welcome to Student Management App</h1>
+
+  <div class="mb-6 flex flex-col space-y-3">
+    <button id="showStudentLoginBtn"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+      Login as Student
+    </button>
+    <button id="showAdminLoginBtn"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+      Login as Admin
+    </button>
+    <a href="/register-student"
+       class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-center">
+      Register as Student
+    </a>
+  </div>
+
+  <form id="studentLoginForm" class="form-container space-y-4" method="post">
+    <h2 class="text-lg font-semibold text-gray-700 mb-3">Login as Student</h2>
+    <div>
+      <label for="studentEmail" class="block text-gray-600 text-sm font-bold mb-2">Email</label>
+      <input type="email" id="studentEmail" name="email"
+             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             required>
+      <div id="studentEmailError" class="text-red-500 text-xs italic" style="display: none;"></div>
+    </div>
+    <div>
+      <label for="studentPassword" class="block text-gray-600 text-sm font-bold mb-2">Password</label>
+      <input type="password" id="studentPassword" name="password"
+             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             required>
+      <div id="studentPasswordError" class="text-red-500 text-xs italic" style="display: none;"></div>
+    </div>
+    <button type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Login</button>
+  </form>
+
+  <form id="adminLoginForm" class="form-container space-y-4" method="post">
+    <h2 class="text-lg font-semibold text-gray-700 mb-3">Login as Admin</h2>
+    <div>
+      <label for="adminEmail" class="block text-gray-600 text-sm font-bold mb-2">Email</label>
+      <input type="email" id="adminEmail" name="email"
+             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             required>
+      <div id="adminEmailError" class="text-red-500 text-xs italic" style="display: none;"></div>
+    </div>
+    <div>
+      <label for="adminPassword" class="block text-gray-600 text-sm font-bold mb-2">Password</label>
+      <input type="password" id="adminPassword" name="password"
+             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             required>
+      <div id="adminPasswordError" class="text-red-500 text-xs italic" style="display: none;"></div>
+    </div>
+    <button type="submit"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Login</button>
+  </form>
+
+</div>
+
+<script>
+            // Get references to the form elements
+            const studentLoginForm = document.getElementById('studentLoginForm');
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            const showStudentLoginBtn = document.getElementById('showStudentLoginBtn');
+            const showAdminLoginBtn = document.getElementById('showAdminLoginBtn');
+
+
+            // Get references to the error message elements
+            const studentEmailError = document.getElementById('studentEmailError');
+            const studentPasswordError = document.getElementById('studentPasswordError');
+            const adminEmailError = document.getElementById('adminEmailError');
+            const adminPasswordError = document.getElementById('adminPasswordError');
+
+
+
+            // Function to display error message
+            function displayErrorMessage(inputElement, errorMessageElement, message) {
+                errorMessageElement.textContent = message;
+                errorMessageElement.style.display = 'block';
+                inputElement.classList.add('border-red-500');
+            }
+
+            // Function to hide error message
+            function hideErrorMessage(inputElement, errorMessageElement) {
+                errorMessageElement.style.display = 'none';
+                errorMessageElement.textContent = '';
+                inputElement.classList.remove('border-red-500');
+            }
+
+            // Function to show a form and hide others
+            function showForm(formId) {
+                const forms = document.querySelectorAll('.form-container');
+                forms.forEach(form => form.classList.remove('active'));
+                document.getElementById(formId).classList.add('active');
+            }
+
+
+
+            // Event listeners for the login option buttons
+            showStudentLoginBtn.addEventListener('click', () => {
+                showForm('studentLoginForm');
+            });
+
+            showAdminLoginBtn.addEventListener('click', () => {
+                showForm('adminLoginForm');
+            });
+
+
+
+            // Student Login Form Event Listener
+            studentLoginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const email = event.target.email.value.trim();
+                const password = event.target.password.value.trim();
+                let hasErrors = false;
+
+                // Email validation
+                if (!email) {
+                    displayErrorMessage(event.target.email, studentEmailError, 'Email is required');
+                    hasErrors = true;
+                } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+                    displayErrorMessage(event.target.email, studentEmailError, 'Invalid email format');
+                    hasErrors = true;
+                } else {
+                    hideErrorMessage(event.target.email, studentEmailError);
+                }
+
+                // Password validation
+                if (!password) {
+                    displayErrorMessage(event.target.password, studentPasswordError, 'Password is required');
+                    hasErrors = true;
+                } else {
+                    hideErrorMessage(event.target.password, studentPasswordError);
+                }
+
+                if (!hasErrors) {
+                    const loginData = {
+                        email,
+                        password
+                    };
+
+                    fetch('/students/login', {
+                            // Corrected URL to your backend login endpoint
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(loginData),
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Successful login, redirect to student details page
+                                window.location.href = '/student-details.html?email=' + encodeURIComponent(email);
+                            } else {
+                                return response.json().then(data => {
+                                    throw new Error(data.message || 'Login failed');
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            alert(error.message); // Basic error handling. Consider a better UI for errors.
+                        });
+                }
+            });
+
+            // Admin Login Form Event Listener (You'll need to adapt this for your admin login endpoint)
+            adminLoginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const email = event.target.email.value.trim();
+                const password = event.target.password.value.trim();
+                let hasErrors = false;
+
+                // Email validation
+                if (!email) {
+                    displayErrorMessage(event.target.email, adminEmailError, 'Email is required');
+                    hasErrors = true;
+                } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+                    displayErrorMessage(event.target.email, adminEmailError, 'Invalid email format');
+                    hasErrors = true;
+                } else {
+                    hideErrorMessage(event.target.email, adminEmailError);
+                }
+
+                // Password validation
+                if (!password) {
+                    displayErrorMessage(event.target.password, adminPasswordError, 'Password is required');
+                    hasErrors = true;
+                } else {
+                    hideErrorMessage(event.target.password, adminPasswordError);
+                }
+
+                if (!hasErrors) {
+                    const loginData = {
+                        email,
+                        password
+                    };
+
+                    fetch('/Admin/login', {
+                            // This needs to be changed to your actual admin login endpoint
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(loginData),
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Successful login, redirect to homepage
+                                window.location.href = '/Home.html'; // Change this URL to your actual admin homepage if different
+                            } else {
+                                return response.json().then(data => {
+                                    throw new Error(data.message || 'Login failed');
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            alert(error.message); // Basic error handling.
+                        });
+                }
+            });
+
+
+
+            // Initially, show only the buttons
+            showForm(null); // Hide all forms initially
+
+            // Add event listeners to show forms when buttons are clicked
+            showStudentLoginBtn.addEventListener('click', () => showForm('studentLoginForm'));
+            showAdminLoginBtn.addEventListener('click', () => showForm('adminLoginForm'));
+            // Removed  showRegisterStudentBtn.addEventListener('click', () => showForm('registerStudentForm'));
+        </script>
+</body>
+</html>

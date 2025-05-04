@@ -23,4 +23,7 @@ public interface StudentService {
     // update student by it's id
      Student updateById(String id,Student updatedStudent);
 
+     //get StudentByEmail for valid login
+    Student getStudentByEmail(String email);
+
 }
