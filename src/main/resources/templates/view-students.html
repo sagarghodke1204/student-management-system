@@ -25,7 +25,7 @@
 </div>
 
 <script>
-    fetch('http://localhost:8081/students')
+    fetch('http://localhost:8081/api/students/get')
       .then(response => {
         if (!response.ok) {
           throw new Error("Failed to fetch students");
@@ -41,7 +41,7 @@
             <td>${student.name}</td>
             <td>${student.email}</td>
             <td>${student.contact_number}</td>
-            <td>${student.adress}</td>
+            <td>${student.address}</td>
             <td>${student.password}</td> `;
           tableBody.appendChild(row);
         });

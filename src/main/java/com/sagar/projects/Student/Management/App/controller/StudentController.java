@@ -16,37 +16,37 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("api/students")
 public class StudentController {
 
     @Autowired
    private StudentService studentService;
 
-    @PostMapping
+    @PostMapping("/post")
     public ResponseEntity<Student> saveStudent (@RequestBody Student student){
           Student student1 = studentService.saveStudent(student);
           return ResponseEntity.status(HttpStatus.CREATED).body(student1);
     }
 
-    @GetMapping
+    @GetMapping("/get")
    public ResponseEntity<List<Student>> getAllStudent(){
        List<Student>students= studentService.getallStudent();
        return ResponseEntity.ok(students);
    }
 
-    @GetMapping("/{id}")
+    @GetMapping("admin/{id}")
    public ResponseEntity<Student> getByStudentId(@PathVariable String id){
      Student student = studentService.getStudentById(id);
 return ResponseEntity.ok(student);
    }
 
-   @DeleteMapping("/{id}")
+   @DeleteMapping("admin/{id}")
    public ResponseEntity<Student>deleteByStudentId(@PathVariable String id){
        Student student = studentService.deleteStudentById(id);
         return ResponseEntity.ok(student);
    }
 
-   @PatchMapping("/{id}")
+   @PatchMapping("admin/{id}")
    public ResponseEntity<Student>updateByStudentId(@PathVariable String id,@RequestBody Student existingStudent){
        Student student= studentService.updateById(id,existingStudent);
        return ResponseEntity.ok(student);
@@ -79,7 +79,7 @@ return ResponseEntity.ok(student);
         }
     }
 
-    @GetMapping("/details") // Added this endpoint here
+    @GetMapping("/details")
     public ResponseEntity<Student> getStudentDetails(@RequestParam String email) {
         try {
             Student student = studentService.getStudentByEmail(email);

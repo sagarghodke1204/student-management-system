@@ -27,7 +27,7 @@
 
       const regNum = document.getElementById("regNum").value;
 
-      fetch(`http://localhost:8081/students/${regNum}`, {
+      fetch(`http://localhost:8081/api/admin/students/${regNum}`, {
         method: "DELETE"
       })
       .then(response => {

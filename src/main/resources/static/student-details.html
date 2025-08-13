@@ -35,7 +35,7 @@
             const loggedInEmail = getUrlParam('email'); // Assuming you pass email as a URL parameter
 
             if (loggedInEmail) {
-                fetch(`/students/details?email=${loggedInEmail}`)
+                fetch(`api/students/details?email=${loggedInEmail}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
@@ -46,7 +46,7 @@
                         document.getElementById('regNum').textContent = studentData.reg_num;
                         document.getElementById('name').textContent = studentData.name;
                         document.getElementById('email').textContent = studentData.email;
-                        document.getElementById('address').textContent = studentData.adress;
+                        document.getElementById('address').textContent = studentData.address;
                         document.getElementById('contact').textContent = studentData.contact_number;
                     })
                     .catch(error => {

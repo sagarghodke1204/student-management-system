@@ -28,8 +28,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin saveAdmin(Admin admin) {
-        String randomAdminId = UUID.randomUUID().toString();
-        admin.setId(randomAdminId);
+
         admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword())); // Encode the password
         adminRepo.save(admin);
         return admin;

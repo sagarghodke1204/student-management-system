@@ -23,9 +23,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student saveStudent(Student student) {
-        String randomStudentid = UUID.randomUUID().toString();
-        student.setReg_num(randomStudentid);
-        System.out.println("Saving student: " + student);
+
         student.setPassword(bCryptPasswordEncoder.encode(student.getPassword())); // Encode the password
 
         studentRepository.save(student);
@@ -58,7 +56,7 @@ public class StudentServiceImpl implements StudentService {
     public Student updateById(String id, Student updatedStudent) {
         Student existingStudent = studentRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Student with RegNum " + id + " not found"));
         existingStudent.setName(updatedStudent.getName());
-        existingStudent.setAdress(updatedStudent.getAdress());
+        existingStudent.setAddress(updatedStudent.getAddress());
         existingStudent.setEmail(updatedStudent.getEmail());
         existingStudent.setContact_number(updatedStudent.getContact_number());
         existingStudent.setPassword(updatedStudent.getPassword());

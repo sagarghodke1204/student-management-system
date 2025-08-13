@@ -36,8 +36,8 @@
             <div id="contactNumberError" class="text-danger"></div>
         </div>
         <div class="mb-3">
-            <label for="adress" class="form-label">Address</label>
-            <input type="text" class="form-control" id="adress" name="adress" required />
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" name="address" required />
             <div id="addressError" class="text-danger"></div>
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
@@ -55,7 +55,7 @@
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
         const contact_number = document.getElementById("contact_number").value.trim();
-        const adress = document.getElementById("adress").value.trim();
+        const address = document.getElementById("address").value.trim();
         let hasErrors = false;
 
         // Reset all error messages
@@ -99,7 +99,7 @@
         }
 
         // Address Validation
-        if (!adress) {
+        if (!address) {
             document.getElementById("addressError").textContent = "Address is required";
             hasErrors = true;
         }
@@ -110,10 +110,10 @@
                 email: email,
                 password: password,
                 contact_number: contact_number,
-                adress: adress,
+                address: address,
             };
 
-            fetch("http://localhost:8081/students", {
+            fetch("http://localhost:8081/api/students/post", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -123,7 +123,7 @@
             .then(response => {
                 if (response.ok) {
                     document.getElementById("result").innerHTML =
-                        '<div class="alert alert-success">Registration successful! Please <a href="/index.html">login</a>.</div>';
+                        '<div class="alert alert-success">Registration successful! Please <a href="/">login</a>.</div>';
                     document.getElementById("studentForm").reset();
                 } else {
                     return response.text().then(text => {

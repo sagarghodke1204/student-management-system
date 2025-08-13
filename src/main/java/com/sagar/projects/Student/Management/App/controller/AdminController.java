@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/Admin")
+@RequestMapping("api/admin")
 public class AdminController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class AdminController {
         return ResponseEntity.ok(adminList);
     }
 
-    @PostMapping
+    @PostMapping("/post")
     ResponseEntity<Admin>saveAdmin(@RequestBody Admin admin){
         Admin admin1 = adminService.saveAdmin(admin);
         return ResponseEntity.status(HttpStatus.CREATED).body(admin1);

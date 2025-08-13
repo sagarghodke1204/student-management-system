@@ -1,44 +1,30 @@
 package com.sagar.projects.Student.Management.App.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.sagar.projects.Student.Management.App.enums.Role;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="Admin")
 public class Admin {
     @Id
-    @Column(name="id")
-    private String id;
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column(name="id" )
+    private Long id;
 
     @Column(name="email")
     private String email;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Column(name = "password")
     private String password;
 
-    public String getEmail() {
-        return email;
-    }
+    @Enumerated(EnumType.STRING) // Store enum as String in DB
+    private Role role = Role.ADMIN;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }

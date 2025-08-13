@@ -56,7 +56,7 @@
       return;
     }
 
-    fetch(`http://localhost:8081/students/${regNum}`)
+    fetch(`http://localhost:8081/api/students/${regNum}`)
       .then(response => {
         if (!response.ok) throw new Error("Student not found");
         return response.json();
@@ -93,7 +93,7 @@
 
     console.log("Updating:", regNum, updatedStudent);
 
-    fetch(`http://localhost:8081/students/${regNum}`, {
+    fetch(`http://localhost:8081/api/admin/students/${regNum}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
