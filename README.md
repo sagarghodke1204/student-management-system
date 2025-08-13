@@ -1,33 +1,68 @@
-# Student Management System 🎓
+Student Management System 🎓
+This is a basic Student Management System built using Spring Boot. It allows an Admin to perform CRUD operations (Create, Read, Update, Delete) on student records. The application is designed for learning and improving backend development skills with Spring Boot and Java.
 
-This is a basic **Student Management System** built using **Spring Boot**. It allows Admin to perform CRUD operations (Create, Read, Update, Delete) on student records. The application is designed for learning and improving backend development skills with Spring Boot and Java.
+📖 Table of Contents
+Features
 
-## 🛠️ Features
+Technologies Used
 
-- Add new student records
-- View all student details
-- Update student information
-- Delete student records
-- MVC architecture with Thymeleaf 
-- Spring Boot with JPA and Hibernate
+Getting Started
 
-## 🧰 Tech Stack
+Prerequisites
 
-- **Java 17**
-- **Spring Boot**
-- **Spring MVC**
-- **Spring Data JPA**
-- **Thymeleaf** (if UI is included)
-- **MySQL** (or H2 for in-memory database)
-- **Maven** (Project management)
-- **Lombok** (for cleaner code)
+Installation
 
-## 📁 Project Structure
+Running the Application
+
+Contributing
+
+License
+
+Contact
+
+🛠️ Features
+Add new student records
+
+View all student details
+
+Update student information
+
+Delete student records
+
+Secure role-based login for Admin and Student
+
+Session-based authentication using Spring Security
+
+MVC architecture with Thymeleaf
+
+Spring Boot with JPA and Hibernate
+
+🧰 Tech Stack
+Java 17
+
+Spring Boot
+
+Spring Security
+
+Spring MVC
+
+Spring Data JPA
+
+Thymeleaf
+
+MySQL (or H2 for in-memory database)
+
+Maven (Project management)
+
+Lombok (for cleaner code)
+
+📁 Project Structure
 student-management-system/
 ├── src/
 │ ├── main/
 │ │ ├── java/
 │ │ │ └── com.example.studentmanagement/
+│ │ │ ├── config/       # Spring Security Configuration
 │ │ │ ├── controller/
 │ │ │ ├── model/
 │ │ │ ├── repository/
@@ -37,47 +72,71 @@ student-management-system/
 │ │ └── application.properties
 └── pom.xml
 
+⚙️ Getting Started
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
-## 🧪 How to Run
+Prerequisites
+Before you begin, ensure you have the following installed:
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/sagarghodke1204/student-management-system.git
-   cd student-management-system
-   
-2.Configure your database in application.properties:
+Java Development Kit (JDK) 17
+
+Git
+
+Maven (or an IDE like IntelliJ IDEA with Maven support)
+
+MySQL Server
+
+Installation
+Clone the repository:
+
+git clone https://github.com/sagarghodke1204/student-management-system.git
+cd student-management-system
+
+Configure your database in application.properties:
+
+Create a MySQL database (e.g., student_db).
+
+Update the connection details in the src/main/resources/application.properties file:
+
 spring.datasource.url=jdbc:mysql://localhost:3306/student_db
 spring.datasource.username=your_username
 spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=update
 
-3.Build and run the project
+Running the Application
+Build and run the project:
+
 In IntelliJ IDEA: Open the project and run the StudentManagementSystemApplication.java class.
+
 Or via terminal:
-bash :
+
 mvn spring-boot:run
 
-4.Access the app:
-Open browser and go to: http://localhost:8081/
+Access the app:
 
-![image](https://github.com/user-attachments/assets/38ef40c2-a60e-46c9-9c0d-3c4098b1b407)
+Open your browser and go to: http://localhost:8081/
 
-when you click on Login as Student:
-![image](https://github.com/user-attachments/assets/bd4f625b-c466-4a34-87d4-22666f6b9488)
+🤝 Contributing
+Contributions are welcome! If you have suggestions for improvements or new features, please follow these steps:
 
-when you click on Login as Admin
-![image](https://github.com/user-attachments/assets/5dd6bff7-2e02-46bf-9795-6df1f7d2457a)
+Fork the repository.
 
-when click on Register As Student
-![image](https://github.com/user-attachments/assets/9effb8fe-1380-4096-b875-708f8d19b824)
+Create a new branch (git checkout -b feature/AmazingFeature).
 
-When you will be Logged in As Admin
-![image](https://github.com/user-attachments/assets/ca4f9cb1-d121-4951-9a0c-0b745cc61854)
+Make your changes.
 
+Commit your changes (git commit -m 'Add some AmazingFeature').
 
+Push to the branch (git push origin feature/AmazingFeature).
 
+Open a Pull Request.
 
+📜 License
+This project is licensed under the MIT License.
 
+📧 Contact
+Sagar Ghodke
 
+GitHub: https://github.com/sagarghodke1204
 
-
+Project Link: https://github.com/sagarghodke1204/student-management-system
